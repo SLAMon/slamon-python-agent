@@ -4,8 +4,9 @@ from slamon_agent.handlers import TaskHandler
 @TaskHandler("wait", 1)
 def wait_task_handler(input_params):
     """
-    Agent for prototyping. Will wait for approximately the specified
-    timeout, with slight random factor.
+    Agent for prototyping.
+
+    Will wait for approximately the specified timeout, with slight random factor.
     """
     import time
     import random

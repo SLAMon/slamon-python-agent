@@ -1,23 +1,30 @@
-import logging
-import uuid
+"""Agent module."""
+
 import time
+import uuid
+import logging
 import argparse
 import importlib
 
 from slamon_agent import timeutil
 from slamon_agent.executor import Executor
-from slamon_agent.communication import TemporaryError
-from slamon_agent.communication import Communicator
 from slamon_agent.handlers import TaskHandler
+from slamon_agent.communication import Communicator, TemporaryError
 
 
 class Agent(object):
-    """
-    Agent class presents an instance of agent application.
-    """
+    """Agent class presents an instance of agent application."""
 
     def __init__(self, afm_url, default_wait=60, max_tasks=2, name='Python Agent 1.0', agent_uuid=None):
+        """
+        Initialize Agent object.
 
+        :param afm_url: The URL for the AFM service.
+        :param default_wait: Amount of time to wait after each run iteration.
+        :param max_tasks: Maximum tasks this agent can execute during one run iteration.
+        :param name: The name of this Agent instance.
+        :param agent_uuid: UUID for this Agent instance.
+        """
         self.afm = Communicator(afm_url)
         self.max_tasks = max_tasks
         self.default_wait = default_wait
@@ -27,16 +34,15 @@ class Agent(object):
 
     def exit(self):
         """
-        Signal agent to exit. After issuing exit, agent will not make further task requests,
+        Signal agent to exit.
+
+        After issuing exit, agent will not make further task requests,
         but will wait until all currently processed tasks finish.
         """
         self._run = False
 
     def run(self):
-        """
-        The "main function" of the agent, looping the claim & execute tasks flow.
-        """
-
+        """The "main function" of the agent, looping the claim & execute tasks flow."""
         with Executor(self.max_tasks) as executor:
             while self._run:
 
@@ -66,9 +72,7 @@ class Agent(object):
 
 
 def _import_module(module_name, package=None):
-    """
-    Recursively load modules to search for task handlers.
-    """
+    """Recursively load modules to search for task handlers."""
     m = importlib.import_module(module_name, package=package)
     if hasattr(m, '__all__'):
         for sub_module_name in m.__all__:
@@ -76,9 +80,7 @@ def _import_module(module_name, package=None):
 
 
 def main():
-    """
-    Entry point for the agent script.
-    """
+    """Entry point for the agent script."""
     logging.basicConfig(level=logging.DEBUG)
 
     parser = argparse.ArgumentParser()

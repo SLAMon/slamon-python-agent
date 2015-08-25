@@ -1,16 +1,15 @@
-import unittest
-import logging
 import json
 import uuid
+import logging
+import unittest
 from unittest.mock import Mock, patch
 
 import responses
 import dateutil.parser
-
-from slamon_agent.communication import Communicator, FatalError
+from slamon_agent import timeutil
 from slamon_agent.agent import Agent
 from slamon_agent.handlers import TaskHandler
-from slamon_agent import timeutil
+from slamon_agent.communication import FatalError, Communicator
 
 logging.basicConfig(
     format='%(thread)d:%(levelname)s:%(message)s',
