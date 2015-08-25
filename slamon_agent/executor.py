@@ -25,7 +25,6 @@ class Executor(object):
             with Executor(max_executors=2) as executor:
                 for task in task_list:
                     executor.submit_task(task, result_callback)
-
     """
 
     def __init__(self, max_executors=2):
@@ -35,17 +34,13 @@ class Executor(object):
         self._logger = logging.getLogger('Executor')
 
     def __enter__(self):
-        """
-        Context manager entry function to start thread pool.
-        """
+        """Context manager entry function to start thread pool."""
         self._logger.debug('Starting executor with %d threads', self._max_executors)
         self._thread_pool = ThreadPoolExecutor(self._max_executors)
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        """
-        Context manager exit function to shutdown thread pool.
-        """
+        """Context manager exit function to shutdown thread pool."""
         self._logger.debug('Stopping executor')
         self._thread_pool.shutdown()
         self._thread_pool = None
@@ -71,8 +66,9 @@ class Executor(object):
 
     def submit_task(self, task, callback):
         """
-        Queue task for asynchronous execution. The callback will receive
-        task id as first positional parameter and either task_data or task_error
+        Queue task for asynchronous execution.
+
+        The callback will receive task id as first positional parameter and either task_data or task_error
         named parameter describing the output.
 
         :param task: dictionary describing the task
@@ -84,9 +80,9 @@ class Executor(object):
 
     def available_executors(self):
         """
-        Get number of available executors. (max executors - active executors)
+        Get number of available executors.
 
-        :return: number of available executors
+        :return: number of available executors (max executors - active executors)
         """
         with self._lock:
             return max(self._max_executors - self._active_executors, 0)
