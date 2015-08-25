@@ -72,7 +72,7 @@ class Communicator(object):
         }
         request_data.update(kwargs)
 
-        logging.getLogger('HTTP').debug("Requesting for tasks: %s", request_data)
+        logging.getLogger('HTTP').info("Requesting for tasks: %s", request_data)
         r = self._post('/tasks', json=request_data)
 
         try:
@@ -100,7 +100,7 @@ class Communicator(object):
         elif task_error:
             request_data["task_error"] = task_error
 
-        logging.getLogger('HTTP').debug("Posting results for task '%s': %s", task_id, request_data)
+        logging.getLogger('HTTP').info("Posting results for task '%s'", task_id)
 
         uploaded = False
         while not uploaded:

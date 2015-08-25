@@ -53,7 +53,7 @@ class Executor(object):
             self._logger.debug('Executing task handler for task %s', task['task_id'])
             result = handler(task['task_data'])
 
-            self._logger.debug('Task executed successfully: %s', task['task_id'])
+            self._logger.info('Task executed successfully: %s', task['task_id'])
             callback(task['task_id'], task_data=result)
 
         except Exception as e:
@@ -75,7 +75,7 @@ class Executor(object):
         :param callback: callable that will receive results
         """
         with self._lock:
-            self._thread_pool.submit(lambda: self._run_task(task, callback))
+            self._thread_pool.submit(self._run_task, task, callback)
             self._active_executors += 1
 
     def available_executors(self):
