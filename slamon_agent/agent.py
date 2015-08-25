@@ -1,14 +1,13 @@
-import logging
-import uuid
 import time
+import uuid
+import logging
 import argparse
 import importlib
 
 from slamon_agent import timeutil
 from slamon_agent.executor import Executor
-from slamon_agent.communication import TemporaryError
-from slamon_agent.communication import Communicator
 from slamon_agent.handlers import TaskHandler
+from slamon_agent.communication import Communicator, TemporaryError
 
 
 class Agent(object):

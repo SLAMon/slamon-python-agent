@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from dateutil import parser, tz
+from dateutil import tz, parser
 
 
 def now():

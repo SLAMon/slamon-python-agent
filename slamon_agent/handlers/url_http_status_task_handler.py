@@ -1,5 +1,6 @@
-from slamon_agent.handlers import TaskHandler
 import requests
+
+from slamon_agent.handlers import TaskHandler
 
 
 @TaskHandler('url_http_status', 1)

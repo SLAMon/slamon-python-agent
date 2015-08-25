@@ -1,10 +1,9 @@
-import unittest
-import logging
 import json
+import logging
+import unittest
 
 import responses
-
-from slamon_agent.communication import Communicator, FatalError, TemporaryError
+from slamon_agent.communication import FatalError, Communicator, TemporaryError
 
 logging.basicConfig(
     format='%(thread)d:%(levelname)s:%(message)s',

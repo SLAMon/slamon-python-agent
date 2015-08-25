@@ -1,7 +1,7 @@
-from concurrent.futures import ThreadPoolExecutor
 import logging
 import threading
 
+from concurrent.futures import ThreadPoolExecutor
 from slamon_agent.handlers import TaskHandler
 
 
