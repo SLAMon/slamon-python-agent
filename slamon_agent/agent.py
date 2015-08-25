@@ -31,6 +31,7 @@ class Agent(object):
         self.name = name
         self.uuid = agent_uuid if agent_uuid else str(uuid.uuid1())
         self._run = True
+        logging.basicConfig(format="%(asctime)s - %(name)s - %(levelname)s - %(message).120s")
 
     def exit(self):
         """
@@ -81,8 +82,6 @@ def _import_module(module_name, package=None):
 
 def main():
     """Entry point for the agent script."""
-    logging.basicConfig(level=logging.DEBUG)
-
     parser = argparse.ArgumentParser()
     parser.add_argument('-u', '--url', action='store', required=True,
                         help='Coordinator URL')
@@ -92,12 +91,16 @@ def main():
                         help='Seconds to wait before reconnection after connection failure.')
     parser.add_argument('-x', '--num-executors', type=int, default=2,
                         help='Number of concurrent task executors.')
+    parser.add_argument('--verbose', '-v', action='count', default=0,
+                        help='Increase logging verbosity. Default logging level is WARNING.')
     args = parser.parse_args()
 
     # import defined modules to load defined handlers
     if args.load:
         for module in args.load:
             _import_module(module)
+
+    logging.basicConfig(level=max(logging.WARNING - (args.verbose * 10), 0))
 
     agent = Agent(
         args.url,
