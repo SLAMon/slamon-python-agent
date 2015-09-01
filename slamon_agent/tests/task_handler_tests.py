@@ -1,7 +1,6 @@
 import unittest
 
 import responses
-
 from slamon_agent.handlers import TaskHandler
 from slamon_agent.handlers.url_http_status_task_handler import url_http_status_task_handler
 

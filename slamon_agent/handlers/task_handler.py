@@ -1,7 +1,5 @@
 class TaskHandler(object):
-    """
-    TaskHandler is a decorator to register a callable as a task handler for the agent.
-    """
+    """TaskHandler is a decorator to register a callable as a task handler for the agent."""
 
     _handlers = {}
 
@@ -17,6 +15,7 @@ class TaskHandler(object):
     def register(cls, callable, name, version):
         """
         Utility to register any callable as task handler.
+
         :param callable: Callable taking one positional argument (input data) and returning dictionary of output params.
         :param name: Name of the task type
         :param version: Version of the supported task type

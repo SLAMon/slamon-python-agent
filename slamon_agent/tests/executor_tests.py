@@ -1,5 +1,5 @@
-import unittest
 import logging
+import unittest
 from unittest.mock import ANY, Mock
 
 from slamon_agent.executor import Executor

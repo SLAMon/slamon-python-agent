@@ -104,6 +104,38 @@ def wait_task_handler(input_params):
    return {'time': timeout}
 ```
 
+Docker images
+-------------
+
+Pre-existing images are built from `master` and `dev` branches:
+`slamon/agent:stable` and `slamon/agent:latest` respectively, and also
+from GitHub tags as `slamon/agent:<tag>`.
+
+### Using the images
+
+The image offers an entrypoint that requires two environment values to
+be defined: `AFM` and `HANDLERS` (Note: The handlers are not generally
+required but since the agent is useless without them, it is required
+here). There also exists an `EXTRA_FLAGS` environment variable that can
+be used to add f.ex. verbosity flags.
+
+If you want to override how `slamon-agent` is started, you need to
+redefine the `CMD` verb.
+
+#### With Docker Compose
+
+The following snippet can be used:
+
+```yml
+agent:
+  image: slamon/agent:stable
+  environment:
+    AFM: "http://slamon-afm"
+    HANDLERS: "slamon_agent.handlers"
+    EXTRA_FLAGS: "-v"
+```
+
+
 [license]: https://img.shields.io/:license-Apache%20License%20v2.0-blue.svg
 [ci_status]: https://travis-ci.org/SLAMon/slamon-python-agent.svg?branch=master
 [coveralls]: https://coveralls.io/repos/SLAMon/slamon-python-agent/badge.svg?branch=master&service=github
