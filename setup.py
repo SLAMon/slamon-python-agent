@@ -4,7 +4,7 @@ from setuptools import setup
 
 setup(
     name='slamon-agent',
-    version='1.0.0',
+    version='1.1.0',
     description='Python implementation of a SLAMon Agent',
     url='https://github.com/SLAMon/slamon-python-agent',
     author='SLAMon',
